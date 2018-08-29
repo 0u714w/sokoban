@@ -3,6 +3,7 @@
     height: 65px;
     position: absolute;
     background-color: red;
+    border-radius: 50%;
 }
 
 main {
@@ -26,6 +27,12 @@ main {
 }
 
 #start {
+    height: 65px;
+    width: 65px;
+    background-color: white;
+}
+
+#block {
     height: 65px;
     width: 65px;
     background-color: aqua;

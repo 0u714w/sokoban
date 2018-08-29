@@ -1,11 +1,11 @@
 const map = [
     "  WWWWW ",
     "WWW   W ",
-    "WOSB  W ",
+    "WOS   W ",
     "WWW BOW ",
-    "WOWWB W ",
+    "WO  B W ",
     "W W O WW",
-    "WB XBBOW",
+    "WB   BOW",
     "W   O  W",
     "WWWWWWWW"
 ];
@@ -31,9 +31,14 @@ for (let y = 0; y < map.length; y++) {
                 wall.dataset.cellType = "border";
                 break;
 
-            case "B":
+            case "S":
                 wall.setAttribute("id", "start");
                 wall.dataset.cellType = "start";
+                break;
+
+            case "B":
+                wall.setAttribute("id", "block");
+                wall.dataset.cellType = "block";
                 break;
 
             case " ":
@@ -102,8 +107,7 @@ document.addEventListener('keydown', (event) => {
             } else if (nextMoveRight.dataset.cellType === "end") {
                 nextMoveRight.appendChild(token);
                 currentPosition = nextMoveRight;
-                setTimeout(function() {
-                    alert("You Win!");
+                setTimeout(function() {;
 
                 }, 1);
             }
