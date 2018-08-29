@@ -1,7 +1,7 @@
 const map = [
     "  WWWWW ",
     "WWW   W ",
-    "WOS   W ",
+    "WSB   W ",
     "WWW BOW ",
     "WO  B W ",
     "W W O WW",
@@ -57,10 +57,11 @@ for (let y = 0; y < map.length; y++) {
 
 let boxTop;
 let boxLeft;
-let x;
-let y;
+
 
 const token = document.getElementById("token")
+
+
 
 let start = document.getElementById("start")
 let currentPosition = start;
@@ -77,6 +78,19 @@ document.addEventListener('keydown', (event) => {
                 nextMoveUp.appendChild(token);
                 currentPosition = nextMoveUp;
                 token.style.transform = "rotate(-90deg)"
+
+            }
+
+            if (nextMoveUp.dataset.cellType === "block") {
+                nextMoveUp.appendChild(token)
+                currentPosition = nextMoveUp;
+
+            }
+
+            if (nextMoveUp.dataset.cellType === "end") {
+
+                nextMoveUp.appendChild(token);
+                currentPosition = nextMoveUp;
             }
             break;
         case 'ArrowDown':
@@ -87,6 +101,18 @@ document.addEventListener('keydown', (event) => {
                 currentPosition = nextMoveDown;
                 token.style.transform = "rotate(90deg)"
             }
+
+            if (nextMoveDown.dataset.cellType === "block") {
+                nextMoveDown.appendChild(token)
+                currentPosition = nextMoveDown;
+
+            }
+
+            if (nextMoveDown.dataset.cellType === "end") {
+
+                nextMoveDown.appendChild(token);
+                currentPosition = nextMoveDown;
+            }
             break;
         case 'ArrowLeft':
             let nextPositionLeft = Number(currentPosition.dataset.cellIndex) - 1;
@@ -96,6 +122,23 @@ document.addEventListener('keydown', (event) => {
                 currentPosition = nextMoveLeft;
                 token.style.transform = "scaleX(-1)"
             }
+
+            if (nextMoveLeft.dataset.cellType === "block") {
+                nextMoveLeft.appendChild(token)
+                currentPosition = nextMoveLeft;
+
+            }
+
+            if (nextMoveLeft.dataset.cellType === "end") {
+
+                nextMoveLeft.appendChild(token);
+                currentPosition = nextMoveLeft;
+            }
+
+            if (nextMoveLeft.dataset.cellType === "start") {
+                nextMoveLeft.appendChild(token);
+                currentPosition = nextMoveLeft;
+            }
             break;
         case 'ArrowRight':
             let nextPositionRight = Number(currentPosition.dataset.cellIndex) + 1;
@@ -104,13 +147,28 @@ document.addEventListener('keydown', (event) => {
                 nextMoveRight.appendChild(token);
                 currentPosition = nextMoveRight;
                 token.style.transform = "rotate(0deg)"
-            } else if (nextMoveRight.dataset.cellType === "end") {
+            }
+
+
+
+            if (nextMoveRight.dataset.cellType === "block") {
+                nextMoveRight.appendChild(token)
+                currentPosition = nextMoveRight;
+
+            }
+
+            if (nextMoveRight.dataset.cellType === "end") {
+
                 nextMoveRight.appendChild(token);
                 currentPosition = nextMoveRight;
-                setTimeout(function() {;
-
-                }, 1);
             }
+
+            if (nextMoveRight.dataset.celltype === "start") {
+
+                nextMoveRight.appendChild(token);
+                currentPosition = nextMoveRight;
+            }
+
             break;
     }
     document.getElementById("token").style.top = boxTop + "px";
