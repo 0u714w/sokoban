@@ -1,0 +1,45 @@
+#token {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    background-color: red;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    align-items: center;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 61.75% 100%;
+}
+
+.mazeRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.borderWall {
+    height: 35px;
+    width: 35px;
+    background-color: black;
+}
+
+#start {
+    height: 35px;
+    width: 35px;
+}
+
+.blankSpace {
+    height: 35px;
+    width: 35px;
+}
+
+#finish {
+    height: 35px;
+    width: 35px;
+    background-color: white;
+}
