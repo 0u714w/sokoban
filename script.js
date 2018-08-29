@@ -1,19 +1,13 @@
 const map = [
-    "WWWWWWWWWWWWWWWWWWWWW",
-    "W   W     W     W W W",
-    "W W W WWW WWWWW W W W",
-    "W W W   W     W W   W",
-    "W WWWWWWW W WWW W W W",
-    "W         W     W W W",
-    "W WWW WWWWW WWWWW W W",
-    "W W   W   W W     W W",
-    "W WWWWW W W W WWW W F",
-    "S     W W W W W W WWW",
-    "WWWWW W W W W W W W W",
-    "W     W W W   W W W W",
-    "W WWWWWWW WWWWW W W W",
-    "W       W       W   W",
-    "WWWWWWWWWWWWWWWWWWWWW"
+    "  WWWWW ",
+    "WWW   W ",
+    "WOSB  W ",
+    "WWW BOW ",
+    "WOWWB W ",
+    "W W O WW",
+    "WB XBBOW",
+    "W   O  W",
+    "WWWWWWWW"
 ];
 
 
@@ -37,7 +31,7 @@ for (let y = 0; y < map.length; y++) {
                 wall.dataset.cellType = "border";
                 break;
 
-            case "S":
+            case "B":
                 wall.setAttribute("id", "start");
                 wall.dataset.cellType = "start";
                 break;
@@ -47,7 +41,7 @@ for (let y = 0; y < map.length; y++) {
                 wall.dataset.cellType = "floor";
                 break;
 
-            case "F":
+            case "O":
                 wall.setAttribute("id", "finish");
                 wall.dataset.cellType = "end"
                 break;

@@ -1,6 +1,6 @@
 #token {
-    width: 35px;
-    height: 35px;
+    width: 65px;
+    height: 65px;
     position: absolute;
     background-color: red;
 }
@@ -12,9 +12,6 @@ main {
     margin-right: auto;
     justify-content: center;
     align-items: center;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 61.75% 100%;
 }
 
 .mazeRow {
@@ -23,23 +20,29 @@ main {
 }
 
 .borderWall {
-    height: 35px;
-    width: 35px;
-    background-color: black;
+    height: 65px;
+    width: 65px;
+    border: 2px solid black;
 }
 
 #start {
-    height: 35px;
-    width: 35px;
+    height: 65px;
+    width: 65px;
+    background-color: aqua;
 }
 
 .blankSpace {
-    height: 35px;
-    width: 35px;
+    height: 65px;
+    width: 65px;
 }
 
 #finish {
-    height: 35px;
-    width: 35px;
-    background-color: white;
+    height: 65px;
+    width: 65px;
+    background-color: blue;
+}
+
+body {
+    background-image: url(images/art.svg);
+    background-repeat: no-repeat;
 }
