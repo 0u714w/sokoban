@@ -63,11 +63,10 @@ body {
 }
 
 .win {
-    background-image: url("images/snowfall.png");
+    background-image: url("images/success.jpg");
     background-position: center;
     background-repeat: no-repeat;
-    width: 300px;
-    height: 300px;
-    margin: auto;
-    margin-bottom: 300px;
+    width: 400px;
+    height: 400px;
+    opacity: 0.9;
 }

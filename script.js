@@ -92,8 +92,11 @@ function checkWin() {
         if (winCount === 6) {
 
             setTimeout(function() {
-                alert("You Win")
-            }, 10);
+                const newDiv = document.createElement("div")
+                const newToken = document.getElementById("token")
+                newDiv.classList.add("win")
+                newToken.appendChild(newDiv)
+            }, 50);
         }
     })
 }
