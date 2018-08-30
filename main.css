@@ -32,10 +32,11 @@ main {
     background-color: white;
 }
 
-#block {
+.box {
     height: 65px;
     width: 65px;
     background-color: aqua;
+    border: 1px dashed black;
 }
 
 .blankSpace {
@@ -46,10 +47,27 @@ main {
 #finish {
     height: 65px;
     width: 65px;
-    background-color: blue;
+    border-radius: 50%;
+    border: 2px solid blue;
 }
 
 body {
     background-image: url(images/art.svg);
     background-repeat: no-repeat;
+}
+
+.newblock {
+    height: 65px;
+    width: 65px;
+    background-color: white;
+}
+
+.win {
+    background-image: url("images/snowfall.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 300px;
+    height: 300px;
+    margin: auto;
+    margin-bottom: 300px;
 }

@@ -1,11 +1,11 @@
 const map = [
     "  WWWWW ",
     "WWW   W ",
-    "WSB   W ",
+    "WOSB  W ",
     "WWW BOW ",
-    "WO  B W ",
+    "WOWWB W ",
     "W W O WW",
-    "WB   BOW",
+    "WB  BBOW",
     "W   O  W",
     "WWWWWWWW"
 ];
@@ -33,12 +33,16 @@ for (let y = 0; y < map.length; y++) {
 
             case "S":
                 wall.setAttribute("id", "start");
-                wall.dataset.cellType = "start";
+                wall.dataset.cellType = "floor";
                 break;
 
             case "B":
-                wall.setAttribute("id", "block");
-                wall.dataset.cellType = "block";
+                wall.classList.add("blankSpace");
+                wall.dataset.cellType = "floor";
+                const box = document.createElement("div");
+                box.classList.add("box");
+                box.dataset.cellType = "box";
+                wall.appendChild(box);
                 break;
 
             case " ":
@@ -48,7 +52,7 @@ for (let y = 0; y < map.length; y++) {
 
             case "O":
                 wall.setAttribute("id", "finish");
-                wall.dataset.cellType = "end"
+                wall.dataset.cellType = "floor"
                 break;
         }
     }
@@ -69,108 +73,145 @@ currentPosition.appendChild(token);
 
 
 
+function findNextPosition(element, rowOffset, columnOffset) {
+    const nextRowPosition = Number(element.dataset.rowIndex) + rowOffset;
+    const nextColumnPosition = Number(element.dataset.cellIndex) + columnOffset;
+    const nextCellElement = document.querySelector("[data-row-index = '" + nextRowPosition + "'][data-cell-index = '" + nextColumnPosition + "']");
+
+    return nextCellElement;
+}
+
+function checkWin() {
+    let winCount = 0;
+    const hole = document.querySelectorAll("#finish");
+    hole.forEach(element => {
+        let foo = element.childElementCount;
+        if (foo === 1 && element.firstChild.id !== "token") {
+            winCount++;
+        }
+        if (winCount === 6) {
+
+            setTimeout(function() {
+                alert("You Win")
+            }, 10);
+        }
+    })
+}
+
+
+
 document.addEventListener('keydown', (event) => {
+    let nextCell
+    let followingCell
+
     switch (event.key) {
+
         case 'ArrowUp':
-            let nextPositionUp = Number(currentPosition.dataset.rowIndex) - 1;
-            let nextMoveUp = document.querySelector("[data-row-index = '" + nextPositionUp + "'][data-cell-index = '" + currentPosition.dataset.cellIndex + "']");
-            if (nextMoveUp.dataset.cellType === "floor") {
-                nextMoveUp.appendChild(token);
-                currentPosition = nextMoveUp;
-                token.style.transform = "rotate(-90deg)"
-
-            }
-
-            if (nextMoveUp.dataset.cellType === "block") {
-                nextMoveUp.appendChild(token)
-                currentPosition = nextMoveUp;
-
-            }
-
-            if (nextMoveUp.dataset.cellType === "end") {
-
-                nextMoveUp.appendChild(token);
-                currentPosition = nextMoveUp;
-            }
+            nextCell = findNextPosition(currentPosition, -1, 0)
+            followingCell = findNextPosition(nextCell, -1, 0)
             break;
+
         case 'ArrowDown':
-            let nextPositionDown = Number(currentPosition.dataset.rowIndex) + 1;
-            let nextMoveDown = document.querySelector("[data-row-index = '" + nextPositionDown + "'][data-cell-index = '" + currentPosition.dataset.cellIndex + "']");
-            if (nextMoveDown.dataset.cellType === "floor") {
-                nextMoveDown.appendChild(token);
-                currentPosition = nextMoveDown;
-                token.style.transform = "rotate(90deg)"
-            }
-
-            if (nextMoveDown.dataset.cellType === "block") {
-                nextMoveDown.appendChild(token)
-                currentPosition = nextMoveDown;
-
-            }
-
-            if (nextMoveDown.dataset.cellType === "end") {
-
-                nextMoveDown.appendChild(token);
-                currentPosition = nextMoveDown;
-            }
+            nextCell = findNextPosition(currentPosition, +1, 0)
+            followingCell = findNextPosition(nextCell, +1, 0)
             break;
+
         case 'ArrowLeft':
-            let nextPositionLeft = Number(currentPosition.dataset.cellIndex) - 1;
-            let nextMoveLeft = document.querySelector("[data-row-index = '" + currentPosition.dataset.rowIndex + "'][data-cell-index = '" + nextPositionLeft + "']");
-            if (nextMoveLeft.dataset.cellType === "floor") {
-                nextMoveLeft.appendChild(token);
-                currentPosition = nextMoveLeft;
-                token.style.transform = "scaleX(-1)"
-            }
-
-            if (nextMoveLeft.dataset.cellType === "block") {
-                nextMoveLeft.appendChild(token)
-                currentPosition = nextMoveLeft;
-
-            }
-
-            if (nextMoveLeft.dataset.cellType === "end") {
-
-                nextMoveLeft.appendChild(token);
-                currentPosition = nextMoveLeft;
-            }
-
-            if (nextMoveLeft.dataset.cellType === "start") {
-                nextMoveLeft.appendChild(token);
-                currentPosition = nextMoveLeft;
-            }
+            nextCell = findNextPosition(currentPosition, 0, -1)
+            followingCell = findNextPosition(nextCell, 0, -1)
             break;
+
         case 'ArrowRight':
-            let nextPositionRight = Number(currentPosition.dataset.cellIndex) + 1;
-            let nextMoveRight = document.querySelector("[data-row-index = '" + currentPosition.dataset.rowIndex + "'][data-cell-index = '" + nextPositionRight + "']");
-            if (nextMoveRight.dataset.cellType === "floor") {
-                nextMoveRight.appendChild(token);
-                currentPosition = nextMoveRight;
-                token.style.transform = "rotate(0deg)"
-            }
-
-
-
-            if (nextMoveRight.dataset.cellType === "block") {
-                nextMoveRight.appendChild(token)
-                currentPosition = nextMoveRight;
-
-            }
-
-            if (nextMoveRight.dataset.cellType === "end") {
-
-                nextMoveRight.appendChild(token);
-                currentPosition = nextMoveRight;
-            }
-
-            if (nextMoveRight.dataset.celltype === "start") {
-
-                nextMoveRight.appendChild(token);
-                currentPosition = nextMoveRight;
-            }
-
+            nextCell = findNextPosition(currentPosition, 0, +1)
+            followingCell = findNextPosition(nextCell, 0, +1)
             break;
+
     }
-    document.getElementById("token").style.top = boxTop + "px";
-    document.getElementById("token").style.left = boxLeft + "px";
+
+
+    if (nextCell) {
+
+        const box = nextCell.firstElementChild;
+
+        if (box && box.dataset.cellType === "box" &&
+            followingCell.dataset.cellType === "floor" &&
+            followingCell.childElementCount === 0) {
+
+            followingCell.appendChild(box);
+
+        }
+
+        if (nextCell.dataset.cellType === "floor" && nextCell.childElementCount === 0) {
+
+            nextCell.appendChild(token);
+            currentPosition = nextCell;
+
+        }
+    }
+
+    checkWin()
+
+
+
 })
+
+
+
+
+
+
+
+
+// document.addEventListener('keydown', (event) => {
+//     switch (event.key) {
+//         case 'ArrowUp':
+//             let nextPositionUp = Number(currentPosition.dataset.rowIndex) - 1;
+//             let nextMoveUp = document.querySelector("[data-row-index = '" + nextPositionUp + "'][data-cell-index = '" + currentPosition.dataset.cellIndex + "']");
+//             if (nextMoveUp.dataset.cellType === "floor") {
+//                 nextMoveUp.appendChild(token);
+//                 currentPosition = nextMoveUp;
+
+
+//             }
+
+
+//             break;
+//         case 'ArrowDown':
+//             let nextPositionDown = Number(currentPosition.dataset.rowIndex) + 1;
+//             let nextMoveDown = document.querySelector("[data-row-index = '" + nextPositionDown + "'][data-cell-index = '" + currentPosition.dataset.cellIndex + "']");
+//             if (nextMoveDown.dataset.cellType === "floor") {
+//                 nextMoveDown.appendChild(token);
+//                 currentPosition = nextMoveDown;
+
+//             }
+
+
+//             break;
+//         case 'ArrowLeft':
+//             let nextPositionLeft = Number(currentPosition.dataset.cellIndex) - 1;
+//             let nextMoveLeft = document.querySelector("[data-row-index = '" + currentPosition.dataset.rowIndex + "'][data-cell-index = '" + nextPositionLeft + "']");
+//             if (nextMoveLeft.dataset.cellType === "floor") {
+//                 nextMoveLeft.appendChild(token);
+//                 currentPosition = nextMoveLeft;
+
+//             }
+
+
+//             break;
+//         case 'ArrowRight':
+//             let nextPositionRight = Number(currentPosition.dataset.cellIndex) + 1;
+//             let nextMoveRight = document.querySelector("[data-row-index = '" + currentPosition.dataset.rowIndex + "'][data-cell-index = '" + nextPositionRight + "']");
+//             if (nextMoveRight.dataset.cellType === "floor") {
+//                 nextMoveRight.appendChild(token);
+//                 currentPosition = nextMoveRight;
+
+//             }
+
+
+
+
+//             break;
+//     }
+//     document.getElementById("token").style.top = boxTop + "px";
+//     document.getElementById("token").style.left = boxLeft + "px";
+// })
